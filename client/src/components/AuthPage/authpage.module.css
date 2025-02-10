@@ -1,0 +1,63 @@
+.authpage{
+    width: 100%;
+    height: 100vh;
+    background: #f4ede3;
+    justify-content: center;
+    align-items: center;
+}
+
+.header{
+    padding-bottom: 1rem;
+}
+
+/* LOGIN */
+.card_content{
+    text-align: center;
+    padding: 1.8rem;
+}
+
+.form_box{
+    max-width: 70%;
+    margin: 0 auto;
+}
+.form{
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.error_text{
+    font-size: 1rem !important;
+    text-align: center !important;
+}
+
+
+/* AUTH BUTTON */
+.auth_button{
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.auth_button div{
+    height: 40px;
+    width: 200px;
+    border: 1px solid black;
+}
+
+
+
+
+/* Auth CHANGE BTN */
+
+.auth_switch button{
+    all: unset;
+    cursor: pointer;
+}
+.auth_switch button:hover{
+    border-bottom: 1px solid black;
+}
+
