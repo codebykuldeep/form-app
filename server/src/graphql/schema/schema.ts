@@ -9,6 +9,7 @@ type User{
     contact:String
     auth_source:String
     email_verified:Boolean
+    process_step:Int
     created_at:String
     updated_at:String
 }
@@ -47,14 +48,18 @@ type RegisterResponse{
     status:Boolean
 }
 
+
 type Query{
     auth:AuthData
     verify(token:String!):VerifyResponse
+    verifyEmail(token:String!):VerifyResponse
+    acceptTerms:VerifyResponse
 }
 
 type Mutation{
     login(email:String!,password:String!):AuthData
     register(email:String!,password:String!,first_name:String!,last_name:String!,dob:String!):RegisterResponse
+    googleAuthLogin(credential:String!,clientId:String!):AuthData
 }
 
 `;

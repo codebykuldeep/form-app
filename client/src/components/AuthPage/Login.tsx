@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
 import { LoginUser } from '../../store/userSlice';
 import { FormHelperText } from '@mui/material';
+import GoogleProvider from './AuthProvider/GoogleProvider';
 
 
 export default function Login() {
@@ -81,9 +82,9 @@ export default function Login() {
             <Box>
                 <Typography variant='subtitle1'>or login with</Typography>
                 <Box className={classes.auth_button}>
-                    <Box></Box>
-                    <Box></Box>
-                    <Box></Box>
+                    <GoogleProvider/>
+                    <Box className={classes.box}></Box>
+                    <Box className={classes.box}></Box>
                 </Box>
             </Box>
             <Box className={classes.auth_switch}>
