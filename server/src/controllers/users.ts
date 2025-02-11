@@ -1,8 +1,13 @@
 import { generateToken, verifyToken } from "../auth/jwt";
 import { Users } from "../lib/entities/users";
 //import { UserType } from "../types/dataTypes";
-import { LoginData, RegisterData } from "../types/formTypes"
+import { GoogleData, GooglePayload, LoginData, RegisterData } from "../types/formTypes"
 import { ErrorObj } from "../types/dataTypes";
+import { generateAndSendVerificationMail } from "./email_record";
+import { OAuth2Client } from "google-auth-library";
+
+
+const client = new OAuth2Client();
 
 export async function getUserForLogin(body:LoginData){
     const {email,} = body;
@@ -33,6 +38,8 @@ export async function registerUser(body:RegisterData){
         last_name
     })
     await user.save();
+    await generateAndSendVerificationMail(user);
+    
     return ({message:'Registered successful',status:true});
    } catch (error) {
     console.log(error);
@@ -57,5 +64,42 @@ export async function verifyUser(token:string){
     console.log(error);
     
     return ({user:{},message:'failed, invalid token',status:false});
+   }
+}
+
+
+
+export async function handleGoogleAuth(body:GoogleData){
+    const { credential, clientId } = body;
+   try {
+     const ticket = await client.verifyIdToken({
+     idToken: credential,
+     audience: clientId,
+   });
+    const payload = ticket.getPayload();
+    const {email ,email_verified ,name} = payload as GooglePayload; 
+
+    const userFound = await Users.findOne({where:{email:email}});
+    if(userFound){
+        const token = generateToken(userFound);
+        return ({user:userFound,token:token,message:'login successful',status:true});
+    }
+    else{
+        const user = Users.create({
+            email,
+            first_name:name,
+            email_verified,
+            auth_source:'google'
+        })
+        user.save();
+        const token = generateToken(user);
+        return ({user:user,token:token,message:'login successful',status:true});
+    }
+    
+   } catch (err) {
+    console.log(err);
+    
+    return ({user:null,token:'',message:'login failed',status:false})
+     
    }
 }

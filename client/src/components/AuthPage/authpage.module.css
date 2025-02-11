@@ -1,7 +1,7 @@
 .authpage{
     width: 100%;
     height: 100vh;
-    background: #f4ede3;
+    background: var(--main-bg);
     justify-content: center;
     align-items: center;
 }
@@ -42,7 +42,7 @@
     justify-content: center;
     gap: 10px;
 }
-.auth_button div{
+.auth_button .box{
     height: 40px;
     width: 200px;
     border: 1px solid black;

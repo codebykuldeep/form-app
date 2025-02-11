@@ -10,3 +10,14 @@ export interface RegisterData{
     last_name:string;
     dob:string;
 }
+
+export interface GoogleData{
+    credential:string;
+    clientId:string;
+}
+
+export interface GooglePayload{
+    name:string;
+    email:string;
+    email_verified:boolean;
+}

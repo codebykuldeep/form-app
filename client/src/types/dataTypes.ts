@@ -8,6 +8,7 @@ export interface IUser {
   last_name: string;
   updated_at: string;
   user_id: string;
+  process_step:string;
 }
 
 export interface SnackState{

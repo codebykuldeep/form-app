@@ -21,7 +21,7 @@ import { RegisterResponse } from "../../types/FetchResults";
 
 export default function Register() {
   const [formState, setFormState] = useState<FormStateType>(initialformState);
-  const [registerFn,{data,loading,error}] = useMutation(REGISTER_QUERY)
+  const [registerFn,{data,loading}] = useMutation(REGISTER_QUERY)
   const [snackState,setSnackState] = useState<SnackState>({open:false,status:false,message:''});
 
   useEffect(()=>{

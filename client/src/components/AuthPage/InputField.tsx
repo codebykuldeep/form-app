@@ -1,4 +1,4 @@
-import { TextField,FormLabel, Box } from '@mui/material'
+import { TextField, Box } from '@mui/material'
 import React from 'react'
 import { FormStateType } from '../../types/formTypes';
 
@@ -23,7 +23,7 @@ function InputField({label,type,name,children,formState,onChange}:InputFieldProp
           id={name}
           name={name}
           type={type}
-          label={label}
+          
           
           defaultValue={formState[name].value}
           error={formState[name].status}

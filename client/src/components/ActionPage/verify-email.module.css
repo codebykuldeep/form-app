@@ -1,0 +1,16 @@
+.container{
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background: var(--main-bg);
+}
+
+.card , .card_btn{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}

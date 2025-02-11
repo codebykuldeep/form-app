@@ -10,3 +10,8 @@ a{
     all: unset;
     cursor: pointer;
 }
+
+:root{
+    --main-bg: #f4ede3;
+    --error : #d32f2f;
+}
