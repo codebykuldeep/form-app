@@ -1,6 +1,7 @@
 import { Entity,Column, PrimaryGeneratedColumn, UpdateDateColumn, CreateDateColumn, OneToOne, BaseEntity } from "typeorm";
 import { Kycs } from "./kyc";
 import { Banks } from "./banks";
+import { EmailsVerify } from "./email_record";
 
 
 @Entity("users")
@@ -46,7 +47,8 @@ export class Users extends BaseEntity{
 
   @Column({
     type: "varchar",
-    default:'self'
+    default:'self',
+    name:'auth_source'
   })
   auth_source: string;
 
@@ -55,6 +57,13 @@ export class Users extends BaseEntity{
     default:false,
   })
   email_verified: boolean;
+
+
+  @Column({
+    type: "boolean",
+    default:false,
+  })
+  terms_accepted: boolean;
 
 
   @Column({
@@ -80,6 +89,11 @@ export class Users extends BaseEntity{
     ()=>Banks,
     (bank) => bank.user_id,
   )
-  bank_detail:Banks
+
+  @OneToOne(
+    ()=>EmailsVerify,
+    (emailRecord) => emailRecord.user,
+  )
+  email_record:EmailsVerify
 }
 

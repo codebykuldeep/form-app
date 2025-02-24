@@ -15,3 +15,15 @@ export function verifyToken(token:string){
     const payload = jwt.verify(token,SECRET);
     return payload;
 }
+
+
+
+export function generateEmailtoken(data:unknown){
+    const payload = JSON.parse(JSON.stringify(data));
+    const token = jwt.sign(payload,SECRET)
+    return token;
+}
+export function verifyEmailToken(token:string){
+    const payload = jwt.verify(token,SECRET);
+    return payload;
+}
