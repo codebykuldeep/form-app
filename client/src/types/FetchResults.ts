@@ -1,4 +1,4 @@
-import { IUser } from "./dataTypes";
+import { Bank, IUser, KYC } from "./dataTypes";
 
 //LOGIN RESULT 
 export interface LoginResponse{
@@ -7,6 +7,8 @@ export interface LoginResponse{
         message:string;
         user:IUser;
         token:string;
+        kyc:KYC
+        bank:Bank
     }
 }
 

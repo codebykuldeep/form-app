@@ -12,6 +12,7 @@ export class EmailsVerify  extends BaseEntity{
         {
             cascade:true,
             eager:true,
+            onDelete:'CASCADE'
         }
     )
     @JoinColumn({name:'user_id'})

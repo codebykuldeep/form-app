@@ -9,6 +9,28 @@ export interface IUser {
   updated_at: string;
   user_id: string;
   process_step:string;
+  dob:string;
+}
+
+export interface KYC{
+  kyc_id:string;
+  document_id:string;
+  address:string;
+  occupation:string;
+  user_id:string;
+}
+
+export interface KycForm extends IUser , KYC{
+}
+
+
+export interface Bank{
+  bank_id:string
+  user_id:string
+  bank_data:string
+  teller_user_id:string
+  created_at:string
+  updated_at:string
 }
 
 export interface SnackState{

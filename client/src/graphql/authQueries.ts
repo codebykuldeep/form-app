@@ -11,12 +11,30 @@ mutation Login($email: String!, $password: String!) {
       email
       first_name
       last_name
+      dob
       contact
       auth_source
       email_verified
       created_at
       updated_at
       process_step
+    }
+    kyc {
+      kyc_id
+      user_id
+      address
+      occupation
+      document_id
+      created_at
+      updated_at
+    }
+    bank {
+      bank_id
+      user_id
+      bank_data
+      teller_user_id
+      created_at
+      updated_at
     }
   }
 }
@@ -47,17 +65,36 @@ query Verify($token: String!) {
   verify(token: $token) {
     message
     status
+    token
     user {
       user_id
       email
       first_name
       last_name
       contact
+      dob
       auth_source
       email_verified
       created_at
       updated_at
       process_step
+    }
+    kyc {
+      kyc_id
+      user_id
+      address
+      occupation
+      document_id
+      created_at
+      updated_at
+    }
+    bank {
+      bank_id
+      user_id
+      bank_data
+      teller_user_id
+      created_at
+      updated_at
     }
   }
 }
@@ -69,12 +106,30 @@ mutation GoogleAuthLogin($credential: String!, $clientId: String!) {
   googleAuthLogin(credential: $credential, clientId: $clientId) {
     message
     status
+    kyc {
+      kyc_id
+      user_id
+      address
+      occupation
+      document_id
+      created_at
+      updated_at
+    }
+    bank {
+      bank_id
+      user_id
+      bank_data
+      teller_user_id
+      created_at
+      updated_at
+    }
     user {
       user_id
       email
       first_name
       last_name
       contact
+      dob
       auth_source
       email_verified
       process_step

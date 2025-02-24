@@ -10,6 +10,8 @@ import Dashboard from "./components/User/Dashboard";
 import KycPage from "./components/User/KycPage/KycPage";
 import BankPage from "./components/User/BankPage/BankPage";
 import Home from "./components/UI/Home";
+import Kyc from "./components/User/KycPage/Kyc";
+import { LoginCallback } from "@okta/okta-react";
 
 export const router = createBrowserRouter([
     {
@@ -24,6 +26,10 @@ export const router = createBrowserRouter([
                 path:'login',
                 loader:authLoader,
                 element:<AuthPage/>
+            },
+            {
+                path:'login/callback',
+                element:<LoginCallback/>
             },
             {
                 path:'register',
@@ -48,7 +54,7 @@ export const router = createBrowserRouter([
                     }, 
                     {
                         path:'kyc',
-                        element:<KycPage/>
+                        element:<Kyc/>
                     },
                     {
                         path:'bank-detail',

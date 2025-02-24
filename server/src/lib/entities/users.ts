@@ -37,7 +37,7 @@ export class Users extends BaseEntity{
     length: 10,
     nullable: true,
   })
-  contact: number;
+  contact: string;
 
   @Column({
     type: "date",
@@ -80,16 +80,17 @@ export class Users extends BaseEntity{
 
   @OneToOne(
     ()=>Kycs,
-    (kyc) => kyc.user_id,
+    (kyc) => kyc.user,
   )
   kyc_detail:Kycs
 
 
   @OneToOne(
     ()=>Banks,
-    (bank) => bank.user_id,
+    (bank) => bank.user,
   )
-
+  bank_details:Banks
+  
   @OneToOne(
     ()=>EmailsVerify,
     (emailRecord) => emailRecord.user,
