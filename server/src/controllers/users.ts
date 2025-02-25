@@ -1,26 +1,36 @@
 import { generateToken, verifyToken } from "../auth/jwt";
 import { Users } from "../lib/entities/users";
-//import { UserType } from "../types/dataTypes";
+
 import { GoogleData, GooglePayload, LoginData, RegisterData } from "../types/formTypes"
 import { ErrorObj } from "../types/dataTypes";
 import { generateAndSendVerificationMail } from "./email_record";
 import { OAuth2Client } from "google-auth-library";
+import { db } from "../lib/db";
+import { Kycs } from "../lib/entities/kyc";
+import { Banks } from "../lib/entities/banks";
 
 
 const client = new OAuth2Client();
 
 export async function getUserForLogin(body:LoginData){
-    const {email,} = body;
+    const {email,password} = body;
     try {
         const user = await Users.findOne({where:{email:email}})
         if(!user){
+            throw new Error('User donot exits')
+        }
+        if(user.password === null){
+            throw new Error('Please login with your provider')
+        }
+        if(user.password !== password){
             throw new Error('Invalid Credentials')
         }
         const token = generateToken(user!)
         console.log(token);
         
-        
-        return ({user:user,token:token,message:'login successful',status:true});
+        const kyc = await db.getRepository(Kycs).createQueryBuilder("kycs").where("kycs.user_id = :user_id", { user_id: user.user_id}).getOne()
+        const bank = await db.getRepository(Banks).createQueryBuilder("banks").where("banks.user_id = :user_id", { user_id: user!.user_id}).getOne();
+        return ({user:user,kyc,bank,token:token,message:'login successful',status:true});
     } catch (error) {
         console.log(error);
         return ({user:{},token:'',message:(error as ErrorObj).message,status:false});
@@ -59,11 +69,17 @@ export async function verifyUser(token:string){
         throw new Error('Failed to verify');
     }
     const user = await Users.findOne({where:{email:payload.email}})
-    return ({user:user,message:'Verified successful',status:true});
+    const newToken = generateToken(user!);
+    console.log(user);
+    
+    const kyc = await db.getRepository(Kycs).createQueryBuilder("kycs").where("kycs.user_id = :user_id", { user_id: user!.user_id}).getOne();
+    console.log(kyc);
+    const bank = await db.getRepository(Banks).createQueryBuilder("banks").where("banks.user_id = :user_id", { user_id: user!.user_id}).getOne();
+    return ({user:user,kyc,bank,message:'Verified successful',token:newToken,status:true});
    } catch (error) {
     console.log(error);
     
-    return ({user:{},message:'failed, invalid token',status:false});
+    return ({user:{},message:'failed, invalid token',token:'',status:false});
    }
 }
 
@@ -82,7 +98,9 @@ export async function handleGoogleAuth(body:GoogleData){
     const userFound = await Users.findOne({where:{email:email}});
     if(userFound){
         const token = generateToken(userFound);
-        return ({user:userFound,token:token,message:'login successful',status:true});
+        const kyc = await db.getRepository(Kycs).createQueryBuilder("kycs").where("kycs.user_id = :user_id", { user_id: userFound.user_id}).getOne()
+        const bank = await db.getRepository(Banks).createQueryBuilder("banks").where("banks.user_id = :user_id", { user_id: userFound!.user_id}).getOne();
+        return ({user:userFound,kyc,bank,token:token,message:'login successful',status:true});
     }
     else{
         const user = Users.create({
@@ -92,8 +110,10 @@ export async function handleGoogleAuth(body:GoogleData){
             auth_source:'google'
         })
         user.save();
+        const kyc = await db.getRepository(Kycs).createQueryBuilder("kycs").where("kycs.user_id = :user_id", { user_id: user.user_id}).getOne()
+        const bank = await db.getRepository(Banks).createQueryBuilder("banks").where("banks.user_id = :user_id", { user_id: user!.user_id}).getOne();
         const token = generateToken(user);
-        return ({user:user,token:token,message:'login successful',status:true});
+        return ({user:user,kyc,bank,token:token,message:'login successful',status:true});
     }
     
    } catch (err) {

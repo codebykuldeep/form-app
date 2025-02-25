@@ -14,6 +14,8 @@ import { AppDispatch, RootState } from '../../store/store';
 import { LoginUser } from '../../store/userSlice';
 import { FormHelperText } from '@mui/material';
 import GoogleProvider from './AuthProvider/GoogleProvider';
+import { getToken } from '../../utils/auth-utils';
+import OktaProvider from './AuthProvider/OktaProvider/OktaProvider';
 
 
 export default function Login() {
@@ -23,7 +25,7 @@ export default function Login() {
     const {user,loading,error} = useSelector((state:RootState)=>state.userSlice)
 
     useEffect(()=>{
-      if(user){
+      if(user && getToken()){
         console.log('user ---->',user);
         navigate('/user');
       }
@@ -83,7 +85,9 @@ export default function Login() {
                 <Typography variant='subtitle1'>or login with</Typography>
                 <Box className={classes.auth_button}>
                     <GoogleProvider/>
-                    <Box className={classes.box}></Box>
+                    <Box className={classes.box}>
+                      <OktaProvider/>
+                    </Box>
                     <Box className={classes.box}></Box>
                 </Box>
             </Box>

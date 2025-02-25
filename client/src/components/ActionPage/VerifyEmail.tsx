@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import {  useNavigate, useSearchParams } from 'react-router-dom'
 import { verifyEmailToken } from '../../graphql/queryResolvers';
 import { Button, Card, CardActions, CardContent, Stack, Typography } from '@mui/material';
 import classes from './verify-email.module.css'
+import { useDispatch } from 'react-redux';
+import { VerifyUser } from '../../store/userSlice';
+import { AppDispatch } from '../../store/store';
 
 function VerifyEmail() {
   const [loading,setLoading] = useState(true);
@@ -10,7 +13,8 @@ function VerifyEmail() {
   const code = query.get('v');
   const [message,setMessage] = useState('');
   const [status,setStatus] = useState(false);
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(()=>{
     if(code){
       verifyEmailToken(code).then(res=>{
@@ -25,6 +29,11 @@ function VerifyEmail() {
       })
     }
   },[code])
+
+  function handleLoginButton(){
+    dispatch(VerifyUser());
+    navigate('/login')
+  }
   return (
     <Stack className={classes.container}>
       <Card sx={{ minWidth: 275 ,minHeight:150 }}>
@@ -36,7 +45,7 @@ function VerifyEmail() {
       {
         status && (
         <CardActions className={classes.card_btn} >
-          <Link to={'/login'}><Button size="small">Go to Login page</Button></Link>
+          <Button size="small" onClick={handleLoginButton}>Go to Login page</Button>
         </CardActions>
         )
       }

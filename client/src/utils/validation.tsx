@@ -57,31 +57,18 @@ export function dateValidation(value:string):[string,boolean]{
     if(!value){
         return ['This field is required',true];
     }
-    const d1 = new Date(value).toISOString().split('T')[0];
-    const d2 = new Date().toISOString().split('T')[0];
+    const user_date = new Date(value);
+    let curr_date = new Date();
+    curr_date.setFullYear(curr_date.getFullYear()- 18);
     
-    if(new Date(d1).getTime() - new Date(d2).getTime() < 0){
-        return ['Select a valid date',true]
+    if(curr_date.getTime()<user_date.getTime()){
+        return ['User must be 18 years old',true]
     }
     return ['',false];
     
     
 }
-function skillValidation(value:string):[string,boolean]{
-    if(!value){
-        return ['This field is required',true];
-    }
-    
-    if(String(value).trim() ===''){
-        return ['This field is required',true];
-    }
-    const skillArr = value.split(',');
-    if(skillArr.length > 3){
-        return ['Select your three best skill',true];
-    }
-    
-    return ['',false];
-}
+
 
 
 export function validation(title:string,value:string):[string,boolean]{
@@ -94,46 +81,21 @@ export function validation(title:string,value:string):[string,boolean]{
     if(title === 'password'){
         return passwordValidation(value);
     }
-    if(title === 'image' || title==='video'){
-        
-        if(value  === ''){
-            return [`Please select a ${title}`,true];
-        }
-        return ['',false];
-    }
-    if(title === 'number' || title === 'phone'){
+    
+    if(title === 'contact' ){
         
         if(Number(value) <  0 || value.length !== 10){
             return [`Please enter valid number of 10 digits`,true];
         }
         return ['',false];
     }
-    if(title === 'amount'){
-        if(value === null || value === '' || Number(value) < 0){
-            return [`Please enter valid amount`,true];
-        }
-        return ['',false];
-    }
-    if(title === 'experience'){
-        console.log('exp',value);
-        
-        if(value === null || value === ''){
-            return [`Please enter valid experience years`,true];
-        }
-        else if( Number(value) < 0 || Number(value) > 15){
-            return [`Please enter valid experience years ranging (0 - 15)`,true];
-        }
-        return ['',false];
-    }
+    
     if(title === 'name' ){
         return nameValidation(value);
     }
 
-    if(title === 'date'){
+    if(title === 'dob'){
         return dateValidation(value);
-    }
-    if(title === 'skill'){
-        return skillValidation(value);
     }
     
     return fieldValidation(value);

@@ -1,0 +1,22 @@
+.container{
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-bg);
+    width: 100%;
+    height: 100vh;
+}
+
+.bank_form{
+    background-color: white;
+    width: 500px;
+    padding: 2rem;
+}
+.action_btn{
+    flex-direction: row !important;
+    gap: 10px;
+    justify-content: space-evenly;
+}
+
+.teller_btn{
+    margin: 15px 0;
+}

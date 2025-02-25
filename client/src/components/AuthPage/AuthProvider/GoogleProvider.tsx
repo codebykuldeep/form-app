@@ -14,7 +14,8 @@ const GoogleProvider = () => {
     const { credential,clientId} = credentialResponse;
     const data = await authenticateGoogleAuth(credential!,clientId!);
     if(Boolean(data.status)){
-        dispatch(userActions.setUser(data.user));
+      const {user,kyc,bank} = data;
+        dispatch(userActions.setState({user,kyc,bank}));
         setToken(data.token);
     }
     else{

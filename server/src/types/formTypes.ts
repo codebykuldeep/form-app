@@ -21,3 +21,18 @@ export interface GooglePayload{
     email:string;
     email_verified:boolean;
 }
+
+export interface kycInput{
+    first_name:string;
+    last_name:string;
+    dob:string;
+    contact:string;
+    address:string;
+    occupation:string;
+    document_id:string;
+}
+
+export interface bankInput{
+    access_token:string;
+    user_id:string;
+}
