@@ -13,9 +13,9 @@ function Teller({handleBank}:TellerProps) {
         applicationId: constants.TELLER_ID!,
         environment:'sandbox',
         onSuccess: (...args) => {
-          console.log('running success');
+          
           handleBank(args);
-            console.log(args);
+        
             
         },
         onExit:()=>{

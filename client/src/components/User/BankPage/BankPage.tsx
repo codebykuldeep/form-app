@@ -51,7 +51,9 @@ function BankPage() {
       <Box className={classes.bank_form}>
         <Typography variant='h5' align='center' py={2}>Bankpage</Typography>
         <Box textAlign={'center'}>
+        <Box className={classes.teller}>
         <Teller handleBank={handleData}/>
+        </Box>
         </Box>
         {
           loading && (

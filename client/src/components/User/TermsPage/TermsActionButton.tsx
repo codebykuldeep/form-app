@@ -17,7 +17,6 @@ function TermsActionButton() {
 
     async function handleNext(){
         if(check){
-            console.log('clicked');
             
             const response = await accpetTermsRequest();
             if(Boolean(response.status)){

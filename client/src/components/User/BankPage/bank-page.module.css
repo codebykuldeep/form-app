@@ -6,6 +6,10 @@
     height: 100vh;
 }
 
+.teller{
+    margin: 15px 0;
+}
+
 .bank_form{
     background-color: white;
     width: 500px;

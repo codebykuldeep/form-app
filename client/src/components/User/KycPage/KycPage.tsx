@@ -46,7 +46,7 @@ function KycPage({initialFormstate}:props) {
       
           if (checkValidFormState(formState)) {
             const data =await updateKYC(formState);
-            console.log(data);
+            
             if(Boolean(data.status)){
               dispatch(VerifyUser());
               navigate('/user/bank-detail')

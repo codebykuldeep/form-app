@@ -61,14 +61,14 @@ export default function Register() {
       const first_name = formState.first_name.value;
       const last_name = formState.last_name.value;
       const dob = formState.dob.value;
-      console.log(email,password,first_name,last_name,dob);
+      
       registerFn({variables:{email,password,dob,firstName:first_name,lastName:last_name}});
-      alert("register");
+      
     } else {
       setFormState(populateFormState(formState));
     }
   }
-  console.log(data);
+  
   
   return (
     <>

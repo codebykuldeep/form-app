@@ -24,18 +24,17 @@ export default Kyc
 function populateCurrentForm(kycForm:Partial<KycForm>,user:IUser,kyc:KYC,initialformState:FormStateType){
     
       const len = !kycForm ? 0 :  Object.values(kycForm).length;
-      console.log(len);
-      console.log(kycForm);
+      
       
       if(len > 0){
-        console.log('kycform');
+        
         for(let key in kycForm){
           initialformState[key].value = kycForm[key as keyof KycForm] as string;
         }
         return (initialformState);
       }
       else{
-        console.log('user , kyc');
+        
         
         for(let key in initialformState){
           if(user[key as keyof IUser]){

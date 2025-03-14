@@ -54,7 +54,7 @@ export async function registerUser(body:RegisterData){
    } catch (error) {
     console.log(error);
     
-    return ({message:'Faield to register',status:false});
+    return ({message:'Failed to register',status:false});
    }
 }
 

@@ -26,7 +26,6 @@ export default function Login() {
 
     useEffect(()=>{
       if(user && getToken()){
-        console.log('user ---->',user);
         navigate('/user');
       }
     },[user,navigate])
@@ -85,10 +84,6 @@ export default function Login() {
                 <Typography variant='subtitle1'>or login with</Typography>
                 <Box className={classes.auth_button}>
                     <GoogleProvider/>
-                    <Box className={classes.box}>
-                      <OktaProvider/>
-                    </Box>
-                    <Box className={classes.box}></Box>
                 </Box>
             </Box>
             <Box className={classes.auth_switch}>

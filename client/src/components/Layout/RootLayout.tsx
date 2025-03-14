@@ -15,7 +15,7 @@ function RootLayout() {
       const token = String(getToken());
       authenticateUser(token).then((data)=>{
         if(Boolean(data.status)){
-          console.log('root',data);
+          
           
           dispatch(userActions.setState({user:data.user,kyc:data.kyc,bank:data.bank}));
           setToken(data.token);

@@ -45,7 +45,7 @@ export async function updateBank(tellerData:unknown){
        }
    }});
    const response = data.updateBank;
-   console.log(response);
+   
    
    return response;
 }

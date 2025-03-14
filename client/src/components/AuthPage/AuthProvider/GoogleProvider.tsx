@@ -19,7 +19,7 @@ const GoogleProvider = () => {
         setToken(data.token);
     }
     else{
-        console.log(data);
+        
         
         alert('failed')
     }
